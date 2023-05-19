@@ -6,11 +6,11 @@ warnings.filterwarnings("ignore")
 
 
 def quante_parole() -> str:
-    scleta_file = int(input("Con qaante parole vuoi giocare? 1,000 o 660,000: "))
-    while scleta_file not in [1000, 660000]:
+    scelta_file = int(input("Con quante parole vuoi giocare? 1,000 o 660,000: "))
+    while scelta_file not in [1000, 660000]:
         print("Scelta non valida!!")
-        scleta_file = int(input("Con qaante parole vuoi giocare? 1,000 o 660,000: "))
-    if scleta_file == 1000:
+        scelta_file = int(input("Con quante parole vuoi giocare? 1,000 o 660,000: "))
+    if scelta_file == 1000:
         path = r"1000_parole.txt"
     else:
         path = r"660000_parole.txt"
@@ -90,7 +90,7 @@ def fai_tentativi(scelta: str, parola: str):
     while n_tentativi > 0:
         print(f"{n_tentativi} tentativi rimasti!")
         if scelta == "facile":
-            print("Lettera già inserita: ", end="")
+            print("Lettere o parole già inserite: ", end="")
             for i in inserimenti_utente:
                 if i != inserimenti_utente[-1]:
                     print(i, end=" | ")
@@ -99,16 +99,23 @@ def fai_tentativi(scelta: str, parola: str):
         parola_nascosta = aggiorna(inserimenti_utente, parola)
         print(parola_nascosta)
         utente = input("Fai un tentativo: ")
-        inserimenti_utente = np.append(inserimenti_utente, utente)
-        parola_aggiornata = aggiorna(inserimenti_utente, parola)
-        if utente in parola_nascosta and scelta in ["facile", "intermedio"]:
+        if utente in inserimenti_utente and scelta in ["facile", "intermedio"]:
+            print("-----------------------------------")
             print("Lettera già inserita!")
-        elif utente == parola or parola_aggiornata == parola:
-            fine(True, parola)
-            return
         elif utente not in parola:
             n_tentativi -= 1
+            print("-----------------------------------")
             print("No! Ritenta")
+        else:
+            print("-----------------------------------")
+            print(f"Hai indovinato la lettera {utente}")
+        if utente not in inserimenti_utente:
+            inserimenti_utente = np.append(inserimenti_utente, utente)
+        parola_aggiornata = aggiorna(inserimenti_utente, parola)
+        if utente == parola or parola_aggiornata == parola:
+            print("-----------------------------------")
+            fine(True, parola)
+            return
         print("-----------------------------------")
     else:
         fine(False, parola)
@@ -133,6 +140,7 @@ def main():
     scelta = difficoltà()
     len_parola = lunghezza_parole(max_len)
     parola = scegli_parola(file, len_parola)
+    print("-----------------------------------")
     fai_tentativi(scelta, parola[0])
 
 
