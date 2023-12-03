@@ -1,12 +1,12 @@
-if __name__ == "__main__":
-    n = 4
-    for k in range(n):
-        for x in range(n):
-            if k < n // 2 and x < n // 2:
-                print("-", end="")
-            elif k >= n // 2 and x >= n // 2:
-                print("+", end="")
-            else:
-                print("0", end="")
+def pal(s: str):
+    if len(s) == 1 or len(s) == 0:
+        return True
+    else:
+        if s[0] != s[-1]:
+            return False
+        else:
+            return pal(s[1:-1])
 
-        print()
+
+if __name__ == '__main__':
+    print(pal("non"))
