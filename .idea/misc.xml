@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="compiti_env" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="scuola_env" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="compiti_env" project-jdk-type="Python SDK" />
 </project>
